@@ -32,14 +32,14 @@ def start(u, b):
 
 def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
- 
-    
+
+
 def userid(u):
     msg = u.message.reply_text('Searching in database...')
     start = time()
     result = uid.get(u.message.text)
     end = time()
-    msg.edit_text('🆔 UserID: '+u.message.text+'\n\n🔡 UserName: @'+result.decode().split(';')[1]+'\n\n🔢 Phone Number: +'+result.decode().split(';')[0]+'\n\n\n🔎 Search time: '+str(int((end-start)*1000000)/1000000)+' sec' if result else '⚠️ UserID not found!')
+    msg.edit_text('🆔 UserID: '+u.message.text+('\n\n🔡 UserName: @'+result.decode().split(';')[1] if result.decode().split(';')[1]!='' else '')+'\n\n🔢 Phone Number: +'+result.decode().split(';')[0]+'\n\n\n🔎 Search time: '+str(int((end-start)*1000000)/1000000)+' sec' if result else '⚠️ UserID not found!')
 
 
 def username(u):
@@ -47,7 +47,7 @@ def username(u):
     start = time()
     result = uname.get(u.message.text.replace('@', ''))
     end = time()
-    msg.edit_text('🆔 UserID: '+result.decode().split(';')[1]+'\n\n🔡 UserName: '+u.message.text.replace('@', '')+'\n\n🔢 Phone Number: +'+result.decode().split(';')[0]+'\n\n\n🔎 Search time: '+str(int((end-start)*1000000)/1000000)+' sec' if result else '⚠️ UserName not found!')
+    msg.edit_text('🆔 UserID: '+result.decode().split(';')[1]+'\n\n🔡 UserName: @'+u.message.text.replace('@', '')+'\n\n🔢 Phone Number: +'+result.decode().split(';')[0]+'\n\n\n🔎 Search time: '+str(int((end-start)*1000000)/1000000)+' sec' if result else '⚠️ UserName not found!')
 
 
 def read(u, b):
@@ -73,6 +73,7 @@ def main():
 
     updater.start_polling()
     updater.idle()
-    
+
+
 if __name__ == '__main__':
     main()
