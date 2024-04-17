@@ -13,10 +13,7 @@ logger = getLogger(__name__)
 uid = Redis()
 uname = Redis(db=1)
 
-admins = [
-    181781214,  # Me
-    847482650,  # mmd(@sm0k7)
-]
+admins = [12345678]
 
 
 def is_admin(u):
@@ -59,7 +56,7 @@ def read(u, b):
 
 
 def main():
-    updater = Updater('1295745309:AAHyUIy_7UZnO532YfppPm9qcn06eqX-6zg', use_context=True)
+    updater = Updater('TOKEN', use_context=True)
     # job=updater.job_queue
     # job.run_once(online,0)
     dp = updater.dispatcher
